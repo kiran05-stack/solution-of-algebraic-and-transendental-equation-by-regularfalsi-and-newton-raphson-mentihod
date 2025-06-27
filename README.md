@@ -1,0 +1,1 @@
+# solution-of-algebraic-and-transendental-equation-by-regularfalsi-and-newton-raphson-mentihod
