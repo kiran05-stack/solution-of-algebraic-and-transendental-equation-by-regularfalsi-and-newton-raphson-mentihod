@@ -1,0 +1,67 @@
+Example 1: Find the root of the equation xex = cos x using the Regular-Falsi Method.
+
+WxMaxima Code:
+kill(all)$
+
+f(x) := x * %e^x - cos(x)$
+numer: true$
+a: 0$
+b: 1$
+k: 4$
+fpprintprec: k$
+
+if f(a) = 0 then (
+  print("The root is", a)
+) elseif f(b) = 0 then (
+  print("The root is", b)
+) else (
+  while abs(f(a)) > 10^(-(k+1)) and abs(f(b)) > 10^(-(k+1)) and abs(a - b) > 10^(-k) do (
+    print("a =", a, " b =", b)$
+    print("f(a) =", f(a), " f(b) =", f(b))$
+    
+    c: (b * f(a) - a * f(b)) / (f(a) - f(b))$
+    print("c =", c, " f(c) =", f(c))$
+    
+    if f(a) * f(c) < 0 then (
+      b: c
+    ) else (
+      a: c
+    )$
+    
+    print("The root lies in the interval (", a, ",", b, ")")$
+    disp(".")
+  )$
+  
+  print("The root of f(x) = 0 correct up to", k, "decimal places is", c)$
+)
+
+
+Example 5: Find the root of the equation x230 using the Newton-Raphson Method.
+
+kill(all)$
+
+f(x) := x^2 - 3$
+x0: 1.5$
+numer: true$
+a: x0$
+k: 5$
+fpprintprec: k + 1$
+
+if f(x0) = 0 then (
+  print("The root is", x0)
+) else (
+  define(g(x), diff(f(x), x))$
+  NR(x) := x - f(x)/g(x)$
+  
+  while abs(f(x0)) > 10^(-(k + 1)) do (
+    x1: NR(x0)$
+    x0: x1$
+    disp(x0)$
+    disp("...")
+  )$
+  
+  print("The root of f(x) = 0 correct up to", k, "decimal places nearer to", a, "is", x0)$
+)
+
+
+
